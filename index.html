@@ -3,17 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Display</title>
+    <title>视频播放</title>
 </head>
 <body>
+    <video id="videoPlayer" width="640" height="360" controls autoplay>
+        <source id="videoSource" src="video1.mp4" type="video/mp4">
+        您的浏览器不支持 HTML5 视频播放。
+    </video>
 
-<h2>Your Video</h2>
+    <script>
+        // 视频链接
+        const videos = {
+            1: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/main video.mp4',  // 视频1地址
+            2: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/shipin.mp4',  // 视频2地址
+            3: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/shipin2.mp4'   // 视频3地址
+        };
 
-<video width="640" height="360" controls>
-    <source src="https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/shipin.mp4" type="video/mp4">
-    你的浏览器不支持播放此视频。
-</video>
+        // 获取视频播放器和视频源
+        const videoPlayer = document.getElementById('videoPlayer');
+        const videoSource = document.getElementById('videoSource');
 
+        // 监听键盘按键事件
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'a' || event.key === 'A') {
+                // 如果按下键盘的 'A' 键，播放视频2
+                videoSource.src = videos[2];
+                videoPlayer.load();  // 重新加载视频
+                videoPlayer.play();  // 播放视频
+            } else if (event.key === 'b' || event.key === 'B') {
+                // 如果按下键盘的 'B' 键，播放视频3
+                videoSource.src = videos[3];
+                videoPlayer.load();
+                videoPlayer.play();
+            }
+        });
 
+        // 自动播放第一个视频
+        videoPlayer.addEventListener('ended', function() {
+            // 视频结束后可以添加额外的逻辑
+            console.log("视频1播放完毕");
+        });
+    </script>
 </body>
 </html>
