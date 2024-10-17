@@ -14,10 +14,16 @@
     <script>
         // 视频链接
         const videos = {
-            1: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/main video.mp4',  // 视频1地址
+            1: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/视频素材.mp4',  // 视频1地址
             2: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/shipin.mp4',  // 视频2地址
-            3: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/shipin2.mp4'   // 视频3地址
+            3: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/shipin2.mp4',  // 视频3地址
+            4: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/shipin3.mp4',  // 视频4地址
+            5: 'https://raw.githubusercontent.com/luanluanzi/video/refs/heads/main/shipin4.mp4'   // 视频5地址
         };
+
+        // 当前状态
+        let currentVideoA = 2;  // A键初始为视频2
+        let currentVideoB = 3;  // B键初始为视频3
 
         // 获取视频播放器和视频源
         const videoPlayer = document.getElementById('videoPlayer');
@@ -26,22 +32,35 @@
         // 监听键盘按键事件
         document.addEventListener('keydown', function(event) {
             if (event.key === 'a' || event.key === 'A') {
-                // 如果按下键盘的 'A' 键，播放视频2
-                videoSource.src = videos[2];
-                videoPlayer.load();  // 重新加载视频
-                videoPlayer.play();  // 播放视频
-            } else if (event.key === 'b' || event.key === 'B') {
-                // 如果按下键盘的 'B' 键，播放视频3
-                videoSource.src = videos[3];
+                // 如果按下键盘的 'A' 键，播放当前状态对应的视频
+                videoSource.src = videos[currentVideoA];
                 videoPlayer.load();
                 videoPlayer.play();
+                
+                // 切换A键下次播放的视频
+                if (currentVideoA === 2) {
+                    currentVideoA = 4;  // 下次按A播放视频4
+                } else {
+                    currentVideoA = 2;  // 再次按A回到视频2
+                }
+            } else if (event.key === 'b' || event.key === 'B') {
+                // 如果按下键盘的 'B' 键，播放当前状态对应的视频
+                videoSource.src = videos[currentVideoB];
+                videoPlayer.load();
+                videoPlayer.play();
+                
+                // 切换B键下次播放的视频
+                if (currentVideoB === 3) {
+                    currentVideoB = 5;  // 下次按B播放视频5
+                } else {
+                    currentVideoB = 3;  // 再次按B回到视频3
+                }
             }
         });
 
         // 自动播放第一个视频
         videoPlayer.addEventListener('ended', function() {
-            // 视频结束后可以添加额外的逻辑
-            console.log("视频1播放完毕");
+            console.log("视频播放完毕");
         });
     </script>
 </body>
